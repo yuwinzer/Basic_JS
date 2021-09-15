@@ -1,5 +1,5 @@
-﻿i = -1;
-rangeArr = [];
+﻿let i = -1;
+let rangeArr = [];
 while (i < 100) {
     i++;
     rangeArr.push(i);
@@ -8,10 +8,10 @@ while (i < 100) {
         //because the prime number should be divisible not less than by 2 numbers - by itself and by 1
     };
 
-    tempArr = [];
-    count = 0;
-    lengthTempArr = rangeArr.length;
-    for (n = 1; n < lengthTempArr + 1; n++) {
+    let tempArr = [];
+    let count = 0;
+    let lengthTempArr = rangeArr.length;
+    for (let n = 1; n < lengthTempArr + 1; n++) {
         if (i % n == 0) {
             count++;
         };

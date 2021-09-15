@@ -5,8 +5,8 @@
 ]
 
 function countCartPrice(x) {
-    sum = 0;
-    for (i = 0; i < x.length; i++) {
+    let sum = 0;
+    for (let i = 0; i < x.length; i++) {
         sum += parseInt(x[i][1]);
     };
     return sum;
