@@ -1,4 +1,4 @@
-﻿let i = -1;
+﻿/* let i = -1;
 let rangeArr = [];
 while (i < 100) {
     i++;
@@ -21,6 +21,36 @@ while (i < 100) {
         //because the prime number should have ONLY 2 dividers with zero remainder
     };
 };
+*/
 
+function zeroton_get(n) {
+    let ztn = []
+    for (let i of [...Array(n + 1).keys()]) {
+        ztn.push(i);
 
+    };
+    ztn[1] = 0;
+    return ztn;
+};
 
+function simplesEratosf(ztn) {
+    let m = 2;
+    let n = ztn.length;
+    let sl = [];
+    while (m < n) {
+        if (ztn[m] != 0) {
+            let j = m * 2;
+            while (j < n) {
+                ztn[j] = 0;
+                j += m;
+            };
+            sl.push(m);
+
+        };
+        m += 1;
+    };
+
+    return sl;
+};
+
+console.log(simplesEratosf(zeroton_get(1000)));
