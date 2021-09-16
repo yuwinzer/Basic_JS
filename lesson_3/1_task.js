@@ -53,4 +53,4 @@ function simplesEratosf(ztn) {
     return sl;
 };
 
-console.log(simplesEratosf(zeroton_get(1000)));
+console.log(simplesEratosf(zeroton_get(100)));
