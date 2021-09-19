@@ -5,19 +5,25 @@
     };
 };
 
-let itemId1 = new item('chair1', 100);
-let itemId2 = new item('chair2', 300);
-let itemId3 = new item('sofa1', 300);
+const itemId1 = new item('chair1', 200);
+const itemId2 = new item('chair2', 300);
+const itemId3 = new item('sofa1', 300);
 
-function countCartPrice(x) {
-    const reducer = (accumulator, currentValue) => accumulator + currentValue.price;
-    return x.reduce(reducer, 0); // 0 - is initial Value
+
+class cart {
+    constructor (items) {
+        this.items = items;
+    };
+
+    countCartPrice() {
+        const reducer = (accumulator, currentValue) => accumulator + currentValue.price;
+        return this.items.reduce(reducer, 0); // 0 - is initial Value
+    };
 };
 
-let cart = [
-    itemId1,
-    itemId2,
-    itemId3
-];
+const cart1 = new cart([itemId1, 
+                        itemId2,
+                        itemId3]);
 
-console.log(countCartPrice(cart));
+
+console.log(cart1.countCartPrice());
