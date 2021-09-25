@@ -1,5 +1,6 @@
 ﻿function tableCreate(x,y,cellSize) {
     let tempTable = document.createElement('table');
+    tempTable.setAttribute('id','chessT');
     tempTable.style.border = "0px solid black";
     tempTable.style.borderCollapse = "collapse";
     for (let i = 0; i < x; i++) {
