@@ -34,7 +34,6 @@ function objectFromClassByGivenID (className, id) {
 };
 
 
-
 class catalog {
     constructor (items) {
         this.items = items;
@@ -54,14 +53,6 @@ class catalog {
         return ('All available products: ' + '<br>' + itemList.join(' , <br>'));
     };
 
-    // itemGenerate () {
-    //     let catItemDiv = document.createElement('div')
-    //     catItemDiv.setAttribute('id','catItemDiv')
-    //     for (let i=0; i<=this.items.length; i++) {
-    //         catalogList.innerHTML = catItemDiv;
-    //     };
-    //     };
-
     // generate catalog in html
     catalogCreate () {
         let catalogList = document.createElement('div');
@@ -80,6 +71,7 @@ class catalog {
         return catalogList;
     };
 };
+
 
 // add item to cart after click Buy Button and recalc cart
 function addToCart (item) {
@@ -116,19 +108,10 @@ class catalogItem {
 };
 
 
-
 class cart {
     constructor (items) {
         this.items = items;
     };
-
-    // countCartPrice() {
-    //     if (this.items != null) {
-    //     const reducer = (accumulator, currentValue) => accumulator + currentValue.price;
-    //     let count = this.items.length;
-    //     return "Всего товаров: " + count + ", на сумму " + this.items.reduce(reducer, 0) + " баксов"; // 0 - is initial Value
-    //     } else {return "Корзина пустая"};
-    // };
 
     countCartPrice() {
         const reducer = (accumulator, currentValue) => accumulator + currentValue.price;
@@ -194,25 +177,17 @@ console.log(cart1.countCartPrice());
 cartContent.innerHTML = cart1.countCartPrice();
 
 let cartBtnContent = document.getElementById('cartBtn');
-cartBtnContent.innerHTML = 'Open cart [' + cartItem.instances.length + ']'
+cartBtnContent.innerHTML = 'Open cart [' + cartItem.instances.length + ']';
 
 
 var modal = document.getElementById("cartModal"); // Get the modal
 var btn = document.getElementById("cartBtn"); // Get the button that opens the modal
 var span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal
 
-btn.onclick = function() {
-  modal.style.display = "block"; // When the user clicks on the button, open the modal
-}
-
-span.onclick = function() {
-  modal.style.display = "none"; // When the user clicks on <span> (x), close the modal
-}
-
+btn.onclick = function() {modal.style.display = "block"}; // When the user clicks on the button, open the modal
+span.onclick = function() {modal.style.display = "none"}; // When the user clicks on <span> (x), close the modal
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none"; // When the user clicks anywhere outside of the modal, close it
-  }
-}
-
-// product.instances[0].destroy
+  };
+};
