@@ -114,6 +114,72 @@ class catalogItem {
 };
 
 
+var addressField = {
+    create : function () {
+        let addressForm = document.createElement('div');
+        addressForm.setAttribute('id','addressForm');
+
+        let header = document.createElement('p');
+        header.innerHTML = '<h3>Address form</h3>';
+        addressForm.appendChild(header);
+
+        let textarea = document.createElement('p');
+        textarea.innerHTML = '<textarea id="address" name="address" autocomplete="address" maxlength="300" required></textarea>';
+        addressForm.appendChild(textarea);
+
+        let buttons = document.createElement('p');
+        buttons.innerHTML = '<button onclick="addressField.btnBack()">Back</button> <button onclick="addressField.btnNext()">Next</button>';
+        addressForm.appendChild(buttons);
+
+        return addressForm.innerHTML;
+    },
+
+    btnNext : function () {
+        var currentDiv = document.getElementById("cartAddress"); // Get the modal
+        currentDiv.style.display = "none"
+        var nextDiv = document.getElementById("cartComment"); // Get the modal
+        nextDiv.style.display = "block"
+    },
+    
+    btnBack : function () {
+        var currentDiv = document.getElementById("cartAddress"); // Get the modal
+        currentDiv.style.display = "none"
+        var prevDiv = document.getElementById("cart"); // Get the modal
+        prevDiv.style.display = "block"
+    }
+};
+
+
+var commentField = {
+    create : function () {
+        let commentForm = document.createElement('div');
+        commentForm.setAttribute('id','commentForm');
+
+        let header = document.createElement('p');
+        header.innerHTML = '<h3>Comment form</h3>';
+        commentForm.appendChild(header);
+
+        let textarea = document.createElement('p');
+        textarea.innerHTML = '<textarea id="comment" name="comment" autocomplete="comment" maxlength="300" required></textarea>';
+        commentForm.appendChild(textarea);
+
+        let buttons = document.createElement('p');
+        buttons.innerHTML = '<button onclick="commentField.btnBack()">Back</button>';
+        commentForm.appendChild(buttons);
+
+        return commentForm.innerHTML;
+    },
+
+    
+    btnBack : function () {
+        var currentDiv = document.getElementById("cartComment"); // Get the modal
+        currentDiv.style.display = "none"
+        var prevDiv = document.getElementById("cartAddress"); // Get the modal
+        prevDiv.style.display = "block"
+    }
+};
+
+
 class cart {
     constructor (items) {
         this.items = items;
@@ -135,6 +201,10 @@ class cart {
     create () {
         let cartList = document.createElement('div');
         cartList.setAttribute('id','cartList');
+
+        let header = document.createElement('p');
+        header.innerHTML = '<h3>Cart form</h3>';
+        cartList.appendChild(header);
 
         // get a list of items with unique id
         let idList = [];
@@ -177,12 +247,23 @@ class cart {
 
 
         let tempCountPriceVar = document.createElement('p');
-             tempCountPriceVar.setAttribute('id', 'cartOveralInfo' );
-             tempCountPriceVar.innerHTML = cart1.countCartPrice();
-             cartList.appendChild(tempCountPriceVar);
+        tempCountPriceVar.setAttribute('id', 'cartOveralInfo' );
+        tempCountPriceVar.innerHTML = cart1.countCartPrice();
+        cartList.appendChild(tempCountPriceVar);
+        
+        let buttons = document.createElement('p');
+        buttons.innerHTML = '<button onclick="cart1.btnNext()">Next</button>';
+        cartList.appendChild(buttons);
 
         return cartList.innerHTML;
     };
+
+    btnNext () {
+        var currentDiv = document.getElementById("cart");
+        currentDiv.style.display = "none"
+        var nextDiv = document.getElementById("cartAddress"); 
+        nextDiv.style.display = "block"
+    }
 };
 
 
@@ -206,6 +287,8 @@ class cartItem {
 
     static instances = []; // for listing all created instances of the class
 };
+
+
 
 
 const chair1 = new product(135, 'Chair 1', 'Gold', 'Nuri', '1/4 scale', 86, 'img/chair_1.jpg');
@@ -236,10 +319,14 @@ let cartContent = document.getElementById('cart');
 console.log(cart1.countCartPrice());
 cartContent.innerHTML = cart1.create();
 
+let cartAddressContent = document.getElementById('cartAddress');
+cartAddressContent.innerHTML = addressField.create();
+
+let cartAddressComment = document.getElementById('cartComment');
+cartAddressComment.innerHTML = commentField.create();
 
 let cartBtnContent = document.getElementById('cartBtn');
 cartBtnContent.innerHTML = 'Open cart [' + cartItem.instances.length + ']';
-
 
 var modal = document.getElementById("cartModal"); // Get the modal
 var btn = document.getElementById("cartBtn"); // Get the button that opens the modal

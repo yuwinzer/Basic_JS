@@ -35,3 +35,15 @@
 	text-decoration: none;
 	cursor: pointer;
   }
+
+  .cartForm {
+	display: block; /* Hidden by default */
+  }
+
+  .addressForm {
+	display: none; /* Hidden by default */
+  }
+
+  .commmentForm {
+	display: none; /* Hidden by default */
+  }
