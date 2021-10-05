@@ -7,7 +7,10 @@ const SNAKE_DIRECTION_DOWN = 'down';
 const SNAKE_DIRECTION_LEFT = 'left';
 const SNAKE_DIRECTION_RIGHT = 'right';
 
-let playing = true;
+let playing = false;
+let endGame = false;
+let score = 0;
+let scoreValue = null;
 
 /**
  * Объект с настройками конфигурации игры
@@ -40,8 +43,11 @@ const game = {
         this.setGameStatus(GAME_STATUS_STARTED);
 
         playing = true;
+        score = 0;
+        scoreValue.innerText = score;
+        // endGame = false;
 
-        board.render();
+        // board.render();
         snake.render();
         food.render();
     },
@@ -63,9 +69,11 @@ const game = {
      */
     stop() {
         this.setGameStatus(GAME_STATUS_STOPPED);
-
-        window.addEventListener('load', init);
-        /* добавить сюда код */
+        if (!endGame) {
+            alert('Ты лузер!');
+        }
+        endGame = true;
+        
     },
 
     /**
@@ -74,7 +82,7 @@ const game = {
      * @param event {KeyboardEvent} Событие нажатия на клавишу.
      */
     move(event) {
-        if (playing == true) {
+        if (playing == true && endGame == false) {
             let direction = null;
 
             /* смотрим на код клавишы и
@@ -103,6 +111,17 @@ const game = {
 
             /* проверяем совпадает ли следующая позиция с какой-нибудь едой */
             const foundFood = food.foundPosition(nextPosition);
+            const foundSnake = snake.checkForSnake(nextPosition);
+            
+            if (foundSnake !== -1) {
+                /* устанавливаем следующую позицию змейки с вторым параметром "не удалять хвост змейки",
+                * змейка съев еду вырастает на одну клетку */
+                // snake.setPosition(nextPosition, false);
+                endGame = true;
+                alert('Кусь');
+                game.stop();
+                return
+            };
 
             /* если найден индекс еды (то есть позиция совпадает) */
             if (foundFood !== -1) {
@@ -121,7 +140,8 @@ const game = {
             } else {
                 /* если индекс не найден, то просто устанавливаем новую координату для змейки */
                 snake.setPosition(nextPosition);
-            }
+            };
+
 
             /* перерендериваем змейку */
             snake.render();
@@ -178,6 +198,7 @@ const board = {
             cell.dataset.left = i % config.size;
 
             board.appendChild(cell);
+            
         }
     }
 };
@@ -243,6 +264,8 @@ const snake = {
         { top: 0, left: 2 },
     ],
 
+    
+
     /**
      * Функция устанавливает направление движения.
      *
@@ -260,6 +283,12 @@ const snake = {
         }
 
         this.direction = direction;
+    },
+
+    checkForSnake(snakePosition) {
+        return this.parts.findIndex((item) =>
+            item.top === snakePosition.top && item.left === snakePosition.left
+        );
     },
 
     /**
@@ -334,6 +363,16 @@ const snake = {
      * Функция отрисовывает змейку на поле.
      */
     render() {
+        if (endGame) {
+            endGame = false;
+            
+            this.parts = [
+                { top: 0, left: 0 },
+                { top: 0, left: 1 },
+                { top: 0, left: 2 },
+            ];
+
+        };
         cells.renderItems(this.parts, 'snake');
     }
 };
@@ -376,6 +415,8 @@ const food = {
      */
     removeItem(foundPosition) {
         this.items.splice(foundPosition, 1);
+        score += 1;
+        scoreValue.innerText = score;
     },
 
     /**
@@ -404,10 +445,14 @@ const food = {
  * Функция, которая выполняет инициализацию игры.
  */
 function init() {
+    board.render();
+
     /* получаем кнопки */
     const startButton = document.getElementById('button-start');
     const pauseButton = document.getElementById('button-pause');
     const stopButton = document.getElementById('button-stop');
+    scoreValue = document.getElementById('score-value');
+
 
     /* добавляем обработчики клика на кнопки */
     startButton.addEventListener('click', game.start.bind(game));
@@ -418,6 +463,9 @@ function init() {
      * далее в методе мы будем проверять нужную нам клавишу */
     window.addEventListener('keydown', game.move);
 }
+
+
+
 
 /**
  * Функция, генерирующая случайные числа.
