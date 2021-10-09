@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    (*) У товара может быть несколько изображений. Нужно:
+    a. Реализовать функционал показа полноразмерных картинок товара в модальном окне;
+    b. Реализовать функционал перехода между картинками внутри модального окна.
+    -->
+
+    <div id="catalog"></div>
+
+    
+    <!-- Trigger/Open The Modal -->
+    <button id="cartBtn"> Open Cart </button>
+
+    <!-- The Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>
+                <div id="cart"></div>
+            </p>
+        </div>
+    </div>
+
+    <script src="2_task.js"></script>
+</body>
+
+</html>
